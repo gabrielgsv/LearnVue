@@ -1,10 +1,7 @@
 <template>
-  <div>
-    <div v-if="gifs">
-      <p>chegou aqui</p>
-    </div>
+  <div v-if="gifs" class="container">
     <div v-for="gif in gifs" :key="gif.id">
-      <img :src="gif.images.original.url" />
+      <img :src="gif.images.original.url" class="image" />
     </div>
   </div>
 </template>
@@ -25,7 +22,7 @@ export default {
     getGifs: function() {
       const url = `${this.apiUrl}/trending?api_key=${this.apiKey}`;
 
-      axios.get(url).then(res => (this.gifs = res.data));
+      axios.get(url).then(res => (this.gifs = res.data.data));
     }
   },
   created: function() {
@@ -36,4 +33,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.container {
+  width: 100%;
+  background-color: black;
+  display: flex;
+  flex-wrap: wrap;
+}
+.image {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
 </style>
